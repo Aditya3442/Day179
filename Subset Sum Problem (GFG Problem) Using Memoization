@@ -1,0 +1,36 @@
+class Solution {
+    public static boolean recur(int index , int target , int[] arr , int[][] dp){
+        if(target == 0)
+           return true;
+        if(index == 0){
+            return arr[index] == target;
+        }
+           
+        if(target < 0)
+           return false;
+           
+        if(dp[index][target] != -1){
+            if(dp[index][target] == 0)
+               return false;
+            else
+               return true;
+        }
+           
+        boolean take = recur(index - 1 , target - arr[index] , arr , dp);
+        boolean notTake = recur(index - 1 , target , arr , dp);
+        
+        if(take || notTake)
+          dp[index][target] = 1;
+        else
+          dp[index][target] = 0;
+        return take  || notTake ;
+    }
+    static Boolean isSubsetSum(int arr[], int target) {
+        // code here
+        int n = arr.length;
+        int dp[][] = new int[n][target + 1];
+        for(int[] nums : dp)
+           Arrays.fill(nums , -1);
+        return recur(n - 1 , target , arr , dp);
+    }
+}
