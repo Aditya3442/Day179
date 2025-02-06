@@ -1,0 +1,24 @@
+class Solution {
+    public int tupleSameProduct(int[] nums) {
+        int n = nums.length;
+        Arrays.sort(nums);
+        int answer = 0;
+        for(int i = 0; i < n; i++){
+            for(int j = n - 1; j > i; j--){
+                int product = nums[i] * nums[j];
+                Set<Integer> set = new HashSet<>();
+                for(int c = i + 1; c < j; c++){
+                    if(product % nums[c] == 0){
+                         int d = product / nums[c];
+                         if(set.contains(d)){
+                             answer += 8;
+                         }
+                        set.add(nums[c]);
+                    }
+                    
+                }
+            }
+        }
+        return answer;
+    }
+}
