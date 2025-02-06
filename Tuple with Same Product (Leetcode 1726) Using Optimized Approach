@@ -1,0 +1,23 @@
+import java.util.*;
+
+class Solution {
+    public int tupleSameProduct(int[] nums) {
+        int n = nums.length;
+        Map<Integer, Integer> mpp = new HashMap<>();
+        int answer = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                int product = nums[i] * nums[j];
+                mpp.put(product, mpp.getOrDefault(product, 0) + 1);
+            }
+        }
+        for (int count : mpp.values()) {
+            if (count > 1) {
+                int pair = (count * (count - 1)) / 2;
+                answer += pair * 8;  
+            }
+        }
+        
+        return answer;
+    }
+}
